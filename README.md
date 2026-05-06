@@ -79,12 +79,6 @@ Bharat-Biz-Agent/
 
 ## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the Repository
-
-git clone https://github.com/Virajdada-123/Bharat-Biz-Agent.git
-cd Bharat-Biz-Agent
-
-
 ### 2️⃣ Create Virtual Environment
 
 python -m venv venv
@@ -185,9 +179,4 @@ This project was developed as part of the Online MVP Development Round.
 Bharat Biz Agent demonstrates how AI combined with messaging platforms can empower small businesses with simple and affordable digital tools.
 
 ---
-
-## 📌 Author
-
-Developed by: **Viraj Shinde**
-
 
