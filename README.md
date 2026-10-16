@@ -63,16 +63,21 @@ All through Telegram — no app installation required.
 
 ## 📂 Project Structure
 
+## 📂 Project Structure
+
+```text
 Bharat-Biz-Agent/
-│
-├── main.py # FastAPI webhook server
-├── agent.py # AI intent detection logic
-├── invoice_utils.py # PDF invoice generation
-├── database.py # SQLite database operations
-├── bharatbiz.db # Database file
-├── invoices/ # Generated invoice PDFs
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation
+├── main.py              # FastAPI webhook server
+├── agent.py             # AI intent detection logic
+├── invoice_utils.py     # PDF invoice generation
+├── database.py          # SQLite database operations
+├── bharatbiz.db         # SQLite database file (if included)
+├── invoices/            # Generated invoice PDFs
+├── requirements.txt     # Python dependencies
+├── Dockerfile           # Docker configuration (if included)
+└── README.md            # Project documentation
+```
+
 
 
 ---
