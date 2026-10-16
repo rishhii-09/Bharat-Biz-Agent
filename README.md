@@ -10,51 +10,37 @@ Bharat Biz Agent is an AI-powered Telegram bot that helps small business owners 
 Millions of small businesses in India still create invoices manually using paper or Excel sheets. They often do not track revenue properly, lack simple digital tools, and cannot afford expensive accounting software. This results in poor record-keeping and inefficient business operations.
 
 ---
+## 🔄 System Workflow
+
+The following diagram illustrates how Bharat Biz Agent processes invoice requests, generates PDF invoices, and stores transaction records.
+
+```mermaid
 flowchart TD
-    U(["Business Owner"])
+    A(["👤 User on Telegram"]) --> B["Send Invoice Request"]
+    B --> C["Telegram Bot API"]
+    C --> D["FastAPI Webhook<br/>main.py"]
+    D --> E["Intent Detection<br/>agent.py"]
+    E --> F["Extract Customer Name<br/>and Invoice Amount"]
+    F --> G["Ask for Confirmation"]
 
-    TG["Telegram Messenger<br/>User sends invoice request"]
-    API["Telegram Bot API"]
-    WEB["FastAPI Webhook<br/>main.py"]
-    AGENT["Intent Detection<br/>agent.py"]
-    CONFIRM{"Invoice details<br/>confirmed?"}
-    PDF["PDF Generation<br/>invoice_utils.py"]
-    DB["Database Operations<br/>database.py"]
-    SQLITE[("SQLite Database<br/>bharatbiz.db")]
-    SEND["Send PDF Invoice<br/>Telegram Bot API"]
-    DONE(["Invoice received in Telegram"])
-    CMD["/summary or /lastinvoice"]
-    FETCH["Retrieve saved invoice records"]
-    RESULT(["Display invoice history<br/>or revenue summary"])
+    G --> H{"User Confirms?"}
+    H -- "No" --> I["Cancel Invoice Creation"]
+    H -- "Yes" --> J["Generate PDF Invoice<br/>invoice_utils.py"]
 
-    U -->|"1. Sends invoice request"| TG
-    TG --> API
-    API -->|"2. Webhook update"| WEB
-    WEB --> AGENT
-    AGENT -->|"3. Extracts intent and details"| CONFIRM
-    CONFIRM -->|"Yes"| PDF
-    CONFIRM -->|"No"| TG
-    PDF --> DB
-    DB --> SQLITE
-    PDF --> SEND
-    SEND --> DONE
+    J --> K["Save Invoice Details<br/>database.py"]
+    K --> L[("SQLite Database<br/>bharatbiz.db")]
+    J --> M["Send PDF via Telegram"]
+    M --> N(["Invoice Received"])
 
-    U -->|"4. Requests summary"| CMD
-    CMD --> WEB
-    WEB --> DB
-    DB --> FETCH
-    FETCH --> SQLITE
-    FETCH --> RESULT
+    L --> O["/summary or /lastinvoice"]
+    O --> P["Retrieve Saved Records"]
+    P --> Q(["Display Revenue Summary<br/>or Latest Invoice"])
 
-    classDef telegram fill:#229ED9,color:#fff,stroke:#168AC0,stroke-width:2px;
-    classDef backend fill:#E8F1FF,color:#17365D,stroke:#4776B4,stroke-width:1.5px;
-    classDef storage fill:#FFF2CC,color:#664D03,stroke:#D6A329,stroke-width:1.5px;
-    classDef output fill:#DDF5E5,color:#14532D,stroke:#299764,stroke-width:1.5px;
+    style A fill:#dbeafe,stroke:#2563eb,color:#111827
+    style N fill:#dcfce7,stroke:#16a34a,color:#111827
+    style L fill:#fef3c7,stroke:#d97706,color:#111827
+```
 
-    class TG,API,SEND telegram;
-    class WEB,AGENT,CONFIRM,PDF,DB,CMD,FETCH backend;
-    class SQLITE storage;
-    class DONE,RESULT output;
 
 ## 💡 Our Solution
 
